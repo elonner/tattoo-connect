@@ -8,9 +8,10 @@ require('./config/database');
 require('./config/passport');
 var session = require('express-session');
 var passport = require('passport');
+var methodOverride = require('method-override');
 
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var artistProfsRouter = require('./routes/artist-profs');
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(methodOverride('_method'));
 
 // Google Oauth
 app.use(session({
@@ -38,7 +40,7 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/artist-profs', artistProfsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

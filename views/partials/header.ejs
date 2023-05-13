@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel='stylesheet' href='/stylesheets/style.css' />
-  <title><%= title %></title>
+  <title>
+    <%= title %>
+  </title>
 </head>
+
 <body>
   <nav>
     <% if (user) { %>
-      <a href="/logout">LOG OUT</a>
+      <a href="/logout">Log Out</a>
     <% } else { %>
-      <a href="/auth/google" class="login">LOG IN</a>
+      <a href="/auth/google" class="login">Log In</a>
     <% } %>
+    <!--  add -> if (!user?.artistProf) so a user can't override their artist profile-->
+        |
+        <a href="/artist-profs/new">ARTIST Sign Up</a>
   </nav>
   <main>
-
