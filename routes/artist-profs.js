@@ -9,6 +9,10 @@ router.get('/new', ensureLoggedIn, artistProfsCtrl.new);
 router.get('/', artistProfsCtrl.index);
 // GET /artist-profs/:id
 router.get('/:id', artistProfsCtrl.show);
+// GET /artist-profs/:id/edit
+router.get('/:id/edit', ensureLoggedIn, artistProfsCtrl.edit);
+// PUT /artist-prof/:id
+router.put('/:id', ensureLoggedIn, artistProfsCtrl.update);
 // POST /artist-profs
 router.post('/', ensureLoggedIn, artistProfsCtrl.create);
 

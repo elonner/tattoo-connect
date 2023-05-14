@@ -1,0 +1,18 @@
+<%- include('../partials/header') %>
+
+<h2>Edit Profile</h2>
+
+<form action="/artist-profs/<%= id %>?_method=PUT" method="POST">
+    <label>Username:</label>
+    <input type="text" name="username"><br>
+    <label>Primary Location:</label>
+    <input type="text" name="city" placeholder="City">
+    <input type="text" name="state" placeholder="State"><br>
+    <label>Phone Number:</label>
+    <input type="number" name="phone" placeholder="3334445555"><br>
+    <label>Styles</label>
+    <input type="text" name="styles"><br>
+    <button type="submit">Save</button>
+  </form>
+
+<%- include('../partials/footer') %>

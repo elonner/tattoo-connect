@@ -46,25 +46,25 @@ async function index(req, res) {
 }
 
 async function deletePost(req, res) {
-    const postUser = (await Post.findById(req.params.id)).artist;
-    if (!req.user.equals(postUser)) return res.redirect('/');
+    const postUserId = (await Post.findById(req.params.id)).artist;
+    if (!req.user._id.equals(postUserId)) return res.redirect('/');
     await Post.findByIdAndDelete(req.params.id);
     res.redirect(`/posts`);
 }
 
 async function edit(req, res) {
-    const postUser = (await Post.findById(req.params.id)).artist;
-    if (!req.user.equals(postUser)) return res.redirect('/');
+    const postUserId = (await Post.findById(req.params.id)).artist;
+    if (!req.user._id.equals(postUserId)) return res.redirect('/');
     res.render(`posts/edit`, { id: req.params.id, title: 'Tattoo Connect', errorMsg: 'Cannot edit post' });
 }
 
 async function update(req, res) {
-    const postUser = (await Post.findById(req.params.id)).artist;
-    if (!req.user.equals(postUser)) return res.redirect('/');
+    const postUserId = (await Post.findById(req.params.id)).artist;
+    if (!req.user._id.equals(postUserId)) return res.redirect('/');
     const image = req.files?.image;
     if (image && !isImg(image.mimetype)) { // if a file was uploaded and it is not an image
         console.log('You must upload a jpeg or png');
-        return res.redirect('/posts/<%= req.params.id %>/edit');
+        return res.redirect(`/posts/${req.params.id}/edit`);
     }
     const post = await Post.findById(req.params.id);
     if (req.body.caption !== '') post.caption = req.body.caption;
@@ -75,7 +75,7 @@ async function update(req, res) {
         res.redirect(`/posts`);
     } catch (err) {
         console.log(err);
-        res.redirect('/posts/edit', { errorMsg: err.message });
+        res.redirect(`/posts/${req.params.id}/edit`, { errorMsg: err.message });
     }
 }
 

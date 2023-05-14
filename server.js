@@ -31,7 +31,7 @@ app.use(methodOverride('_method'));
 app.use(
   fileUpload({
       limits: {
-          fileSize: 10000000, // Around 10MB
+          fileSize: 15000000, // Around 10MB
       },
       abortOnLimit: true,
   })
