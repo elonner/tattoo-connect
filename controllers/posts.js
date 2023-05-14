@@ -46,15 +46,21 @@ async function index(req, res) {
 }
 
 async function deletePost(req, res) {
+    const postUser = (await Post.findById(req.params.id)).artist;
+    if (!req.user.equals(postUser)) return res.redirect('/');
     await Post.findByIdAndDelete(req.params.id);
     res.redirect(`/posts`);
 }
 
-function edit(req, res) {
+async function edit(req, res) {
+    const postUser = (await Post.findById(req.params.id)).artist;
+    if (!req.user.equals(postUser)) return res.redirect('/');
     res.render(`posts/edit`, { id: req.params.id, title: 'Tattoo Connect', errorMsg: 'Cannot edit post' });
 }
 
 async function update(req, res) {
+    const postUser = (await Post.findById(req.params.id)).artist;
+    if (!req.user.equals(postUser)) return res.redirect('/');
     const image = req.files?.image;
     if (image && !isImg(image.mimetype)) { // if a file was uploaded and it is not an image
         console.log('You must upload a jpeg or png');

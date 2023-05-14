@@ -5,7 +5,12 @@ const ensureLoggedIn = require('../config/ensureLoggedIn');
 
 // GET /artist-profs/new
 router.get('/new', ensureLoggedIn, artistProfsCtrl.new);
+// GET /artist-profs
+router.get('/', artistProfsCtrl.index);
+// GET /artist-profs/:id
+router.get('/:id', artistProfsCtrl.show);
 // POST /artist-profs
 router.post('/', ensureLoggedIn, artistProfsCtrl.create);
+
 
 module.exports = router;

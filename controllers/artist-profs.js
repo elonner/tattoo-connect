@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
+const User = require('../models/user');
+const Post = require('../models/post')
 
 module.exports = {
   new: newProf,
-  create 
+  create,
+  index,
+  show 
 }
 
 // renders artist sign up sheet
@@ -25,9 +29,25 @@ async function create(req, res) {
   user.artistProf = req.body;
   try {
     await user.save();
+    res.redirect(`/`);
   } catch (err) {
     console.log(err);
+    res.redirect('/artist-profs/new');
   }
-  res.redirect(`/`);
-  console.log(user);            // CONSOLE LOG
+}
+
+async function index(req, res) {
+  try {
+    const artists = await User.find({ $and: [{ artistProf: { $exists: true }}, {_id: { $ne: req.user?._id } }]});
+    res.render('artist-profs/index', {title: 'Tattoo Connect', errorMsg: 'Cannot show artist.', artists})
+  } catch(err) {
+    console.log(err);
+    res.redirect('/');
+  }
+}
+
+async function show(req, res) {
+  const artist = await User.findById(req.params.id);
+  const posts = await Post.find({ artist: artist._id});
+  res.render(`artist-profs/show`, { title: 'Tattoo Connect', errorMsg: 'Cannot Show Artist', artist, posts })
 }

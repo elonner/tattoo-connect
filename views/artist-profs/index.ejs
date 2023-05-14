@@ -1,0 +1,11 @@
+<%- include('../partials/header') %>
+
+<h2>All Artists</h2>
+
+<% artists.forEach(a => { %>
+    <h3><%= a.firstName %> <%= a.lastName %></h3>
+    <a href="artist-profs/<%= a._id %>"><%= a.artistProf.username %></a>
+    <p>Styles: <%= a.artistProf.styles.join(', ') %></p>
+<% }); %>
+
+<%- include('../partials/footer') %>
