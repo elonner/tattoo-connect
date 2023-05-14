@@ -8,5 +8,4 @@ router.get('/new', ensureLoggedIn, artistProfsCtrl.new);
 // POST /artist-profs
 router.post('/', ensureLoggedIn, artistProfsCtrl.create);
 
-
 module.exports = router;

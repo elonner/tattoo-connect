@@ -9,9 +9,12 @@ require('./config/passport');
 var session = require('express-session');
 var passport = require('passport');
 var methodOverride = require('method-override');
+var fileUpload = require('express-fileupload');
+
 
 var indexRouter = require('./routes/index');
 var artistProfsRouter = require('./routes/artist-profs');
+var postsRouter = require('./routes/posts');
 
 var app = express();
 
@@ -25,6 +28,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
+app.use(
+  fileUpload({
+      limits: {
+          fileSize: 10000000, // Around 10MB
+      },
+      abortOnLimit: true,
+  })
+);
+
 
 // Google Oauth
 app.use(session({
@@ -41,6 +53,7 @@ app.use(function(req, res, next) {
 
 app.use('/', indexRouter);
 app.use('/artist-profs', artistProfsRouter);
+app.use('/posts', postsRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
