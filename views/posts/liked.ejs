@@ -1,0 +1,11 @@
+<%- include('../partials/header') %>
+
+<h2>Liked Posts</h2>
+
+<% posts.forEach(post => { %>
+    <div class="post">
+        <%- include('../partials/post', {post: post, user: user}) %>
+    </div>
+<% }); %>
+
+<%- include('../partials/footer') %>

@@ -4,7 +4,7 @@
 
 <% posts.forEach(post => { %>
     <div class="post">
-        <%- include('./partials/post', {post: post}) %>
+        <%- include('./partials/post', {post: post, user: user}) %>
     </div>
 <% }); %>
 

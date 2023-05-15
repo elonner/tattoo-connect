@@ -9,8 +9,9 @@ const locSchema = new Schema({
 const artistProfSchema = new Schema({
   username: {
     type: String,
-    required: true,                   // FIX THIS ISSUE duplicate key when null!!!!!!
-    unique: true
+    required: true,                  
+    unique: true,
+    sparse: true
   },
   // reviews: [reviewSchema],
   clientRating: Number,

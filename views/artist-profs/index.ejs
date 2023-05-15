@@ -3,7 +3,7 @@
 <h2>All Artists</h2>
 
 <% artists.forEach(a => { %>
-    <h3><%= a.firstName %> <%= a.lastName %></h3>
+    <h3><%= a.firstName %> <%= a.lastName %>: <%= a.artistProf.location[0]?.city %>, <%= a.artistProf.location[0]?.state %></h3>
     <a href="artist-profs/<%= a.artistProf.username %>">@<%= a.artistProf.username %></a>
     <p>Styles: <%= a.artistProf.styles.join(', ') %></p>
 <% }); %>

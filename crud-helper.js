@@ -30,5 +30,6 @@ const Post = require('./models/post');
 
 // Top-level await (using await outside of an async function)
 // has been available since Node v14.8
-// let movies = await Movie.find({});
-// console.log(movies);
+//  let posts = await Post.find({});
+//  let users = await User.find({});
+

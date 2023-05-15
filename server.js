@@ -1,22 +1,24 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 require('dotenv').config();
 require('./config/database');
 require('./config/passport');
-var session = require('express-session');
-var passport = require('passport');
-var methodOverride = require('method-override');
-var fileUpload = require('express-fileupload');
+const session = require('express-session');
+const passport = require('passport');
+const methodOverride = require('method-override');
+global.__basedir = __dirname;
 
 
-var indexRouter = require('./routes/index');
-var artistProfsRouter = require('./routes/artist-profs');
-var postsRouter = require('./routes/posts');
 
-var app = express();
+
+const indexRouter = require('./routes/index');
+const artistProfsRouter = require('./routes/artist-profs');
+const postsRouter = require('./routes/posts');
+
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -28,27 +30,30 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
-app.use(
-  fileUpload({
-      limits: {
-          fileSize: 20000000,
-      },
-      abortOnLimit: true,
-  })
-);
-
-
-// Google Oauth
-app.use(session({
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: true 
-}));
-app.use(passport.initialize());
-app.use(passport.session());
-app.use(function(req, res, next) {
-  res.locals.user = req.user;
-  next();
+// app.use(
+//   fileUpload({
+//     limits: {
+//       fileSize: 20000000,
+//     },
+//     abortOnLimit: true,
+//   })
+//   );
+  
+  // app.use(bodyParser.urlencoded({ extended: true })); // already taken care of on 31
+  
+  
+  
+  // Google Oauth
+  app.use(session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true 
+  }));
+  app.use(passport.initialize());
+  app.use(passport.session());
+  app.use(function(req, res, next) {
+    res.locals.user = req.user;
+    next();
 });
 
 app.use('/', indexRouter);
