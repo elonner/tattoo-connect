@@ -1,0 +1,4 @@
+<a href="artist-profs/<%= post.artist %>">@<%= post.artist %></a>
+<img src="data:img/png;base64,<%= post.content[0].image.data.toString('base64') %>"<br><br>
+<h3><%= post.caption %></h3>
+<p><%= post.tags.join(', ') %></p>

@@ -8,13 +8,15 @@ router.get('/new', ensureLoggedIn, artistProfsCtrl.new);
 // GET /artist-profs
 router.get('/', artistProfsCtrl.index);
 // GET /artist-profs/:id
-router.get('/:id', artistProfsCtrl.show);
+router.get('/:username', artistProfsCtrl.show);
 // GET /artist-profs/:id/edit
-router.get('/:id/edit', ensureLoggedIn, artistProfsCtrl.edit);
+router.get('/:username/edit', ensureLoggedIn, artistProfsCtrl.edit);
 // PUT /artist-prof/:id
-router.put('/:id', ensureLoggedIn, artistProfsCtrl.update);
+router.put('/:username', ensureLoggedIn, artistProfsCtrl.update);
 // POST /artist-profs
 router.post('/', ensureLoggedIn, artistProfsCtrl.create);
+// POST /artist-profs/:id/follow
+router.put('/:username/follow', ensureLoggedIn, artistProfsCtrl.follow);
 
 
 module.exports = router;

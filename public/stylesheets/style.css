@@ -10,3 +10,7 @@ a {
 img {
   width: 30vw;
 }
+
+.post {
+  border: 1px solid black;
+}

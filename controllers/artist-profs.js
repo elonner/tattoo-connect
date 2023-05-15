@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const User = require('../models/user');
-const Post = require('../models/post')
+const Post = require('../models/post');
+const { findOne } = require('../models/user');
 
 module.exports = {
   new: newProf,
@@ -8,16 +9,19 @@ module.exports = {
   index,
   show,
   edit,
-  update
+  update,
+  follow
 }
 
 // renders artist sign up sheet
 function newProf(req, res) {
+  if (req.user.artistProf) return res.redirect('/');
   res.render('artist-profs/new', { title: 'Tattoo Connect', errorMsg: 'Cannot Show Sign Up Form' });
 }
 
 // handles artist sign up sheet submission
 async function create(req, res) {
+  if (req.user.artistProf) return res.redirect('/');
   for (let key in req.body) {
     if (req.body[key] === '') delete req.body[key];
   }
@@ -49,18 +53,21 @@ async function index(req, res) {
 }
 
 async function show(req, res) {
-  const artist = await User.findById(req.params.id);
-  const posts = await Post.find({ artist: artist._id });
-  res.render(`artist-profs/show`, { title: 'Tattoo Connect', errorMsg: 'Cannot Show Artist', artist, posts })
+  // const artist = await User.findOne({ artistProf: { username: { $eq: req.params.username } }});
+  const artist = await User.findOne({ 'artistProf.username' : req.params.username });
+  const posts = await Post.find({ artist: artist.artistProf.username });
+  res.render(`artist-profs/show`, { title: 'Tattoo Connect', errorMsg: 'Cannot Show Artist', user: req.user, artist, posts })
 }
 
 async function edit(req, res) {
-  if (!req.user._id.equals(req.params.id)) return res.redirect('/');
-  res.render(`artist-profs/edit`, { id: req.params.id, title: 'Tattoo Connect', errorMsg: 'Cannot edit post' });
+  const artist = await User.findOne({ 'artistProf.username' : req.params.username });
+  if (!req.user._id.equals(artist._id)) return res.redirect('/');
+  res.render(`artist-profs/edit`, { username: req.params.username, title: 'Tattoo Connect', errorMsg: 'Cannot edit post' });
 }
 
 async function update(req, res) {
-  if (!req.user._id.equals(req.params.id)) return res.redirect('/');
+  const artist = await User.findOne({ 'artistProf.username' : req.params.username });
+  if (!req.user._id.equals(artist._id)) return res.redirect('/');
   const prof = req.user.artistProf;
 
   if (req.body.username !== '') prof.username = req.body.username;
@@ -72,6 +79,19 @@ async function update(req, res) {
     res.redirect(`/posts`);
   } catch (err) {
     console.log(err);
-    res.redirect(`/artist-profs/${req.params.id}/edit`, { errorMsg: err.message });
+    res.redirect(`/artist-profs/${req.params.username}/edit`, { errorMsg: err.message });
   }
+}
+
+async function follow(req, res) {
+  if (req.user.following.includes(req.params.username)) {
+    req.user.following.splice(req.user.following.indexOf(req.params.username), 1);
+  }
+  else req.user.following.push(req.params.username);
+  try {
+    await req.user.save();
+  } catch (err) {
+    console.log(err);
+  }
+  res.redirect(`/artist-profs/${req.params.username}`)
 }

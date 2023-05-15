@@ -4,7 +4,7 @@
 
 <% artists.forEach(a => { %>
     <h3><%= a.firstName %> <%= a.lastName %></h3>
-    <a href="artist-profs/<%= a._id %>"><%= a.artistProf.username %></a>
+    <a href="artist-profs/<%= a.artistProf.username %>">@<%= a.artistProf.username %></a>
     <p>Styles: <%= a.artistProf.styles.join(', ') %></p>
 <% }); %>
 

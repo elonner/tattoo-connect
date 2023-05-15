@@ -9,7 +9,7 @@ const locSchema = new Schema({
 const artistProfSchema = new Schema({
   username: {
     type: String,
-    required: true,
+    required: true,                   // FIX THIS ISSUE duplicate key when null!!!!!!
     unique: true
   },
   // reviews: [reviewSchema],
@@ -27,7 +27,7 @@ const userSchema = new Schema({
   email: String,
   phone: Number,
   likedPosts: [Schema.Types.ObjectId],
-  following: [Schema.Types.ObjectId],
+  following: [String],
   artistProf: artistProfSchema,
   googleId: { type: String, required: true },
 }, {

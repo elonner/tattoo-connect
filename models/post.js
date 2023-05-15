@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const User = require('./user');
 
 const postSchema = new Schema({
     content: {
@@ -12,7 +13,9 @@ const postSchema = new Schema({
         required: true
     },
     tags: [String],
-    artist: Schema.Types.ObjectId
+    artist: String
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model('Post', postSchema);

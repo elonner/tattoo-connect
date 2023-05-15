@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport');
+var postsCtrl = require('../controllers/posts');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Tattoo Connect' });
-});
+router.get('/', postsCtrl.homeFeed);
 
 router.get('/auth/google', passport.authenticate(
   'google',
