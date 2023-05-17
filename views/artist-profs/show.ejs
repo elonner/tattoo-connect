@@ -13,11 +13,15 @@
     </form>
 <% } %>
 
-<% posts.forEach(post => { %>
-    <div class="post">
-        <%- include('../partials/post', {post: post}) %>
-    </div>
-<% }); %>
+<div class="my-container">
+    <% posts.forEach(post => { %>
+        <div class="box">
+            <div class="card">
+                <%- include('../partials/post', {post}) %>
+            </div>
+        </div>
+    <% }); %>
+</div>
 
 
 <%- include('../partials/footer') %>

@@ -5,35 +5,106 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://kit.fontawesome.com/68f7040f7b.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
   <link rel='stylesheet' href='/stylesheets/style.css' />
-  <title>
-    <%= title %>
-  </title>
+  <script src="https://code.jquery.com/jquery-3.6.4.js"
+    integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
+  <script defer src="/javascripts/script.js"></script>
 </head>
 
-<body>
-  <nav>
-    <% if (user) { %>
-      <a href="/logout">Log Out</a>
-    <% } else { %>
-      <a href="/auth/google">Log In</a>
-    <% } %>
-    |
-    <a href="/">Home</a>
-    |
-    <a href="/posts/liked">Liked Posts</a>
-    |
-    <a href="/artist-profs">View Artists</a>
-    <% if (user?.artistProf) { %>
-      |
-      <a href="/posts/new">POST</a>
-      |
-      <a href="/posts">My Posts</a>
-      |
-      <a href="/artist-profs/<%= user.artistProf.username %>/edit">Edit Profile</a>
-    <% } else { %>
-      |
-      <a href="/artist-profs/new">ARTIST Sign Up</a>
-    <% } %>
+<body class="has-navbar-fixed-top">
+  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <img src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" width="41" height="28">
+      </a>
+    </div>
+  
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="/">
+          Home<br>Feed
+        </a>
+  
+        <a class="navbar-item" href="/artist-profs">
+          Find<br>Artists
+        </a>
+        
+        <a class="navbar-item" href="#">
+          Suggested<br>Posts
+        </a>
+  
+        <a class="navbar-item" href="#">
+          Discover
+        </a>
+        <form action="#" class="navbar-item">
+          <p class="control has-icons-left">
+            <input type="text" class="input is-rounded">
+            <span class="icon is-left">
+              <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+            <button class="hidden" type="submit"></button>
+          </p>
+        </form>
+      </div>
+  
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="field is-grouped">
+            <% if (user) { %>
+              <p class="control">
+                <a class="button is-light" href="/logout">
+                  Log out
+                </a>
+              </p>
+            <% } else { %>
+              <p class="control">
+                <a class="button is-primary" href="/auth/google">
+                  <strong>Sign up</strong>
+                </a>
+              </p>
+              <p class="control">
+                <a class="button is-light" href="/auth/google">
+                  <strong>Log in</strong>
+                </a>
+              </p>
+            <% } %>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Profile
+          </a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="/posts/liked">
+              Liked posts
+            </a>
+            <a href="#" class="navbar-item">
+              Following
+            </a>
+            <hr class="navbar-divider">
+            <% if (user?.artistProf) { %>
+              <a href="/posts/new" class="navbar-item">
+                New post
+              </a>
+              <a href="/posts" class="navbar-item">
+                My posts
+              </a>
+              <a href="/artist-profs/<%= user.artistProf.username %>/edit" class="navbar-item">
+                Edit Profile 
+              </a>
+            <% } else { %>
+              <a href="/artist-profs/new" class="navbar-item">
+                Artist sign up
+              </a>
+            <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
   </nav>
-  <main>

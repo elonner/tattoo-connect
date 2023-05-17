@@ -3,7 +3,7 @@ var router = express.Router();
 const postsCtrl = require('../controllers/posts');
 const ensureLoggedIn = require('../config/ensureLoggedIn');
 const multer = require('multer');
-const upload = multer({dest: 'public/uploads/'})
+const upload = multer({dest: 'public/uploads/'});
 
 // QUESTION: should we always be using ensureLoggedIn???
 // GET /posts

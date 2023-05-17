@@ -6,6 +6,13 @@ const locSchema = new Schema({
   state: String 
 });
 
+const imgSchema = new Schema({
+  image: {
+      data: String,
+      contentType: String
+  }
+});
+
 const artistProfSchema = new Schema({
   username: {
     type: String,
@@ -13,6 +20,8 @@ const artistProfSchema = new Schema({
     unique: true,
     sparse: true
   },
+  profPic: imgSchema,
+  aboutMe: String,
   // reviews: [reviewSchema],
   clientRating: Number,
   qualityRating: Number,
@@ -28,7 +37,7 @@ const userSchema = new Schema({
   email: String,
   phone: Number,
   likedPosts: [Schema.Types.ObjectId],
-  following: [String],
+  following: [Schema.Types.ObjectId],
   artistProf: artistProfSchema,
   googleId: { type: String, required: true },
 }, {

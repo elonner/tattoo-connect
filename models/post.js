@@ -20,7 +20,10 @@ const postSchema = new Schema({
         required: true
     },
     tags: [String],
-    artist: String,
+    artist: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     likedBy: [Schema.Types.ObjectId]
 }, {
     timestamps: true

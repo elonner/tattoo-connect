@@ -1,10 +1,13 @@
 <%- include('../partials/header') %>
 
+<br><br><br><br>
 <h2>Edit Profile</h2>
 
-<form action="/artist-profs/<%= username %>?_method=PUT" method="POST">
+<form action="/artist-profs/<%= user.artistProf.username %>?_method=PUT" method="POST" enctype="multipart/form-data">
     <label>Username:</label>
     <input type="text" name="username"><br>
+    <label>Profile Pic:</label>
+    <input type="file" name="profPic"><br>
     <label>Primary Location:</label>
     <input type="text" name="city" placeholder="City">
     <input type="text" name="state" placeholder="State"><br>

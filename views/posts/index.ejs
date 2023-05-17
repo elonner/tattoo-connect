@@ -1,15 +1,27 @@
 <%- include('../partials/header') %>
 
-<h2>All Posts</h2>
-
-<% posts.forEach(post => { %>
-    <div class="post">
-        <%- include('../partials/post', {post: post}) %>
-        <a href="/posts/<%= post._id %>/edit">Edit Post</a>
-        <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
-            <button type="submit">DELETE POST</button>
-        </form>
+<section class="hero has-background-danger-light is-small">
+    <div class="hero-body mt-2">
+      <p class="title has-text-centered">
+        My Posts
+      </p>
     </div>
-<% }); %>
+</section>
+
+<div class="my-container">
+    <% posts.forEach(post => { %>
+        <div class="box">
+            <div class="card">
+                <%- include('../partials/post', {post}) %>
+                <footer class="card-footer">
+                    <a class="card-footer-item has-background-primary has-text-light" href="/posts/<%= post._id %>/edit">Edit</a>
+                    <form class="card-footer-item button has-background-danger has-text-light" action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+                            <button class="card-footer-item button has-background-danger has-text-light" type="submit">Delete</button>
+                    </form>
+                </footer>
+            </div>
+        </div>
+    <% }); %>
+</div>
 
 <%- include('../partials/footer') %>

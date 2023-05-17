@@ -1,10 +1,13 @@
 <%- include('../partials/header') %>
 
+<br><br><br><br>
 <h2>Artist Signup</h2>
 
-<form action="/artist-profs" method="POST">
+<form action="/artist-profs" method="POST" enctype="multipart/form-data">
     <label>Username:</label>
     <input type="text" name="username" required><br>
+    <label>Profile Pic:</label>
+    <input type="file" name="profPic"><br>
     <label>Primary Location:</label>
     <input type="text" name="city" placeholder="City" required>
     <input type="text" name="state" placeholder="State" required><br>

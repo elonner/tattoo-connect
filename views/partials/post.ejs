@@ -1,15 +1,73 @@
-<a href="artist-profs/<%= post.artist %>">@<%= post.artist %></a>
-<img src="<%= post.content[0].image.data %>"><br><br>
-<h3><%= post.caption %></h3>
-<p><%= post.tags.join(', ') %></p>
-<% if (user) { %>
-    <% if (!post.likedBy.includes(user._id)) { %>
-        <form action="/posts/<%= post._id %>/like?_method=PUT" method="POST">
-            <button type="submit">Like</button>
-        </form>
-        <% } else { %>
-        <form action="/posts/<%= post._id %>/like?_method=PUT" method="POST">
-            <button type="submit">Unlike</button>
-        </form>
-    <% } %>
-<% } %>
+
+<div id="<%= post.artist._id %>" class="card-content">
+    <div class="media">
+        <div class="media-left">
+            <figure class="image is-64x64 is-1by1">
+                <img class="is-rounded" src="/<%= post.artist.artistProf.profPic.image.data %>">
+            </figure>        
+        </div>
+        
+        <div class="media-content">
+            <p class="title is-4">
+                <a class="has-text-dark" href="artist-profs/<%= post.artist.artistProf.username %>"><%= post.artist.firstName %> <%= post.artist.lastName %></a>
+            </p>
+            <p class="subtitle is-6">
+                <a class="has-text-dark" href="artist-profs/<%= post.artist.artistProf.username %>">@<%= post.artist.artistProf.username %></a>
+            </p>        
+        </div>
+    </div>
+</div>
+
+<div class="card-image">
+    <figure class="image is-4by5">
+        <img class="post" src="/<%= post.content[0].image.data %>">
+    </figure>
+    <div class="post"></div>
+</div>
+
+<div class="card-content">
+    <div class="media">
+        <div class="content">
+            <div class="my-block">
+                <% if (user) { %>
+                    <% if (!post.likedBy.includes(user._id)) { %>
+                        <form action="/posts/<%= post._id %>/like?_method=PUT" method="POST">
+                            <button class="button" type="submit">
+                                <span class="icon">
+                                    <i class="fa-regular fa-heart"></i>
+                                </span>
+                                <span>Like</span>
+                            </button>
+                        </form>
+                        <% } else { %>
+                        <form action="/posts/<%= post._id %>/like?_method=PUT" method="POST">
+                            <button class="button is-success" type="submit">
+                                <span class="icon">
+                                    <i class="fa-solid fa-heart-crack"></i>
+                                </span>
+                                <span>Unlike</span>
+                            </button>
+                        </form>
+                    <% } %>
+                <% } %>
+            </div>
+            <div class="my-block">
+                <%= post.caption %>
+            </div>
+            <div class="my-block">
+                <div class="tags are-small">
+                    <% post.tags.forEach(t => { %>
+                        <span class="tag is-info is-light is-rounded">
+                            <a href="#"><%= t %></a>
+                        </span>
+                    <% }) %>
+                </div>
+            </div>
+            <div class="my-block">
+            </div>
+            <div class="my-block has-text-grey-light">
+                <%= post.date.toDateString() %>
+            </div>
+        </div>
+    </div>
+</div>

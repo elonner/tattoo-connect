@@ -1,11 +1,57 @@
 <%- include('../partials/header') %>
 
-<h2>All Artists</h2>
+<section class="hero has-background-info-light is-small">
+    <div class="hero-body mt-2">
+      <p class="title has-text-centered">
+        All Artists
+      </p>
+    </div>
+</section>
 
-<% artists.forEach(a => { %>
-    <h3><%= a.firstName %> <%= a.lastName %>: <%= a.artistProf.location[0]?.city %>, <%= a.artistProf.location[0]?.state %></h3>
-    <a href="artist-profs/<%= a.artistProf.username %>">@<%= a.artistProf.username %></a>
-    <p>Styles: <%= a.artistProf.styles.join(', ') %></p>
-<% }); %>
+    <div class="my-container">
+        <% artists.forEach(a=> { %>
+            <div class="box">
+                <div class="card profile">
+                    <div class="card-content">
+                        <div class="media">
+                            <div class="media-left">
+                                <figure class="image is-128x128 is-1by1">
+                                    <img class="is-rounded" src="/<%= a.artistProf.profPic.image.data %>">
+                                </figure>
+                            </div>
 
-<%- include('../partials/footer') %>
+                            <div class="media-content">
+                                <p class="title is-2">
+                                    <a class="has-text-dark" href="artist-profs/<%= a.artistProf.username %>">
+                                        <%= a.firstName %>
+                                            <%= a.lastName %>
+                                    </a>
+                                </p>
+                                <p class="subtitle is-4">
+                                    <a class="has-text-dark" href="artist-profs/<%= a.artistProf.username %>">@<%=
+                                            a.artistProf.username %></a>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="my-block">
+                            <div class="styles">
+                                <% a.artistProf.styles?.forEach(s => { %>
+                                    <span class="tag is-medium is-success is-rounded">
+                                        <a class="has-text-light" href="#"><%= s %></a>
+                                    </span>
+                                <% }) %>
+                            </div>
+                        </div>
+
+                        <div class="content">
+                            <p class="title is-4">About me</p>
+                            <%= a.artistProf.aboutMe %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+    </div>
+
+    <%- include('../partials/footer') %>

@@ -1,4 +1,3 @@
-const mongoose = require('mongoose');
 const Post = require('../models/post');
 const User = require('../models/user');
 const fs = require('fs');
@@ -32,7 +31,7 @@ async function create(req, res) {
     }
     req.body.date = new Date();
     req.body.tags = req.body.tags?.split(',').map(t => t.trim());
-    req.body.artist = req.user.artistProf.username;
+    req.body.artist = req.user._id;
     if (!isImg(req.file.mimetype)) {
         console.log('You must upload a jpeg or png');
         fs.unlinkSync(__basedir + `/public/uploads/${req.file.filename}`);
@@ -52,44 +51,43 @@ async function create(req, res) {
         res.redirect(`/posts`);
     } catch (err) {
         console.log(err);
-        res.render('posts/new', { errorMsg: err.message });
+        res.redirect('/posts/new');
     }
 }
 
 // shows all of a users posts
 async function index(req, res) {
-    const posts = await Post.find({ artist: req.user.artistProf?.username });
+    const posts = await Post.find({ artist: req.user._id }).populate('artist');
     res.render('posts/index', { posts, user: req.user, title: 'Tattoo Connect', errorMsg: 'Cannot show all posts.' });
 }
 
 async function deletePost(req, res) {
     const post = await Post.findById(req.params.id);
-    const user = await User.findOne({ 'artistProf.username': post.artist });
-    if (!req.user._id.equals(user._id)) return res.redirect('/');
+    const artist = await User.findById(post.artist);
+    if (!req.user._id.equals(artist._id)) return res.redirect('/');
     fs.unlinkSync(__basedir + `/public/${post.content[0].image.data}`);
     await Post.findByIdAndDelete(req.params.id);
     res.redirect(`/posts`);
 }
 
 async function edit(req, res) {
-    const postUsername = (await Post.findById(req.params.id)).artist;
-    const user = await User.findOne({ 'artistProf.username': postUsername });
-    if (!req.user._id.equals(user._id)) return res.redirect('/');
+    const post = await Post.findById(req.params.id);
+    const artist = await User.findOne(post.artist);
+    if (!req.user._id.equals(artist._id)) return res.redirect('/');
     res.render(`posts/edit`, { id: req.params.id, title: 'Tattoo Connect', errorMsg: 'Cannot edit post' });
 }
 
 async function update(req, res) {
-    const postUsername = (await Post.findById(req.params.id)).artist;
-    const user = await User.findOne({ 'artistProf.username': postUsername });
-    if (!req.user._id.equals(user._id)) return res.redirect('/');
+    const post = await Post.findById(req.params.id).populate('artist');
+    const artist = await User.findById(post.artist);
+    if (!req.user._id.equals(artist._id)) return res.redirect('/');
 
     const image = req.file;
-    if (!isImg(image?.mimetype)) { // if a file was uploaded and it is not an image
+    if (image && !isImg(image.mimetype)) { // if a file was uploaded and it is not an image
         console.log('You must upload a jpeg or png');
         fs.unlinkSync(__basedir + `/public/uploads/${image.filename}`);
         return res.redirect(`/posts/${req.params.id}/edit`);
     }
-    const post = await Post.findById(req.params.id);
     if (req.body.caption) post.caption = req.body.caption;
     if (req.body.tags) post.tags = req.body.tags.split(',').map(t => t.trim())
     if (image) {
@@ -114,24 +112,23 @@ async function update(req, res) {
 }
 
 async function homeFeed(req, res) {
-    let posts = await Post.find({});
+    let posts = await Post.find({}).populate('artist');
     if (req.user && req.user.following.length) {
         if (req.user.artistProf) {
-            console.log('hre')
-            posts = await Post.find({ $and: [{ artist: { $in: req.user.following } }, { artist: { $ne: req.user.artistProf.username } }] })
+            posts = await Post.find({ $and: [{ artist: { $in: req.user.following } }, { artist: { $ne: req.user._id } }] }).populate('artist');
         }
         else {
-            posts = await Post.find({ artist: { $in: req.user.following } });
+            posts = await Post.find({ artist: { $in: req.user.following } }).populate('artist');
         }
     }
-    res.render('index', { posts, user: req.user, title: 'Tattoo Connect', erorrMsg: 'Cannot show home feed.' });
+    res.render('index', { posts, title: 'Tattoo Connect', erorrMsg: 'Cannot show home feed.' });
 }
 
 async function like(req, res) {
     const post = await Post.findById(req.params.id);
     if (req.user.likedPosts?.includes(req.params.id)) {
-        console.log(req.user.likedPosts, req.params._id);
-        req.user.likePosts.splice(req.user.likedPosts.indexOf(req.params.id), 1);
+        console.log(req.user.likedPosts, req.params.id, req.user.likedPosts.indexOf(req.params.id));
+        req.user.likedPosts.splice(req.user.likedPosts.indexOf(req.params.id), 1);
         post.likedBy.splice(post.likedBy.indexOf(req.user._id), 1);
     }
     else {
@@ -148,7 +145,7 @@ async function like(req, res) {
 }
 
 async function showLiked(req, res) {
-    const posts = await Post.find({ likedBy: req.user._id });
+    const posts = await Post.find({ likedBy: req.user._id }).populate('artist');
     res.render('posts/liked', { posts, user: req.user, title: 'Tattoo Connect', errorMsg: 'Cannot show liked posts.' });
 }
 

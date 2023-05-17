@@ -1,16 +1,97 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: rgb(230, 230, 230);
+  font-family: 'Merriweather', serif;
 }
 
-a {
-  color: #00B7FF;
+.my-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
-img {
-  width: 30vw;
+/* \\\\\\\\\\\\\\\\\\\\\\\\\ POSTS \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+
+.card {
+  width: 350px;
+  border-radius: 1rem;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.3), 0 0 0 1.5px rgba(10,10,10,.1);
+}
+
+.card-footer-item.has-background-primary {
+  border-radius: 0 0 0 1rem;
+}
+
+.card-footer-item.has-background-danger {
+  border-radius: 0 0 1rem 0;
+}
+
+button.card-footer-item {
+  border: 0;
+}
+
+form.card-footer-item {
+  border: 0;
+}
+
+.card img,
+img.is-rounded {
+  object-fit: cover;
+}
+
+img.is-rounded {
+  box-shadow: 0 0 0 3px hsl(171, 34%, 65%);
+}
+
+.button.small {
+  height: 1.75em;
+  padding-left: 0.6em;
+  padding-right: 0.6em;
+}
+
+.box {
+  box-shadow: none;
+  background-color: initial;
+}
+
+.my-block:not(:last-child) {
+  margin-bottom: 0.5rem;
+}
+
+.media {
+  align-items: center;
+}
+
+.field.has-addons {
+  justify-content: center;
+}
+
+.post-control {
+  padding-top: 0;
+}
+
+.hidden {
+  display: none;
 }
 
 .post {
-  border: 1px solid black;
+  padding: 0 10px;
+  border-radius: 30px;
+}
+
+/* \\\\\\\\\\\\\\\\\\\\\\\\\ ARTIST PROF \\\\\\\\\\\\\\\\\\\\\\\\ */
+
+.card.profile {
+  width: 600px;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.3), 0 0 0 1.5px rgba(10,10,10,.1);
+}
+
+/* \\\\\\\\\\\\\\\\\\\\\\\\ NAVBAR \\\\\\\\\\\\\\\\\\\\\\\\\ */
+
+a.navbar-item {
+  text-align: center;
+}
+
+.navbar {
+  box-shadow: 0 0 6px 0px black;
 }
