@@ -15,7 +15,8 @@ module.exports = {
     homeFeed,
     like,
     showLiked,
-    showDiscover
+    showDiscover,
+    showResults
 }
 
 // render form to make a post
@@ -147,12 +148,56 @@ async function like(req, res) {
 
 async function showLiked(req, res) {
     const posts = await Post.find({ likedBy: req.user._id }).populate('artist');
-    res.render('posts/liked', { posts, user: req.user, title: 'Tattoo Connect', errorMsg: 'Cannot show liked posts.' });
+    res.render('posts/liked', { posts, user: req.user, errorMsg: 'Cannot show liked posts.' });
 }
 
 async function showDiscover(req, res) {
     let posts = await Post.find({}).populate('artist');
-    res.render('posts/discover', { posts, title: 'Tattoo Connect', erorrMsg: 'Cannot show discover.' });
+    res.render('posts/discover', { posts, erorrMsg: 'Cannot show discover.' });
+}
+
+async function showResults(req, res) {
+    if (req.query === '') res.redirect('/');
+    const keywords = req.query.searchInput.split(' ').map(q => q.trim());
+    let posts = await Post.find({}).populate('artist');
+    let searchObjs = [];
+    posts.forEach(p => {
+        const prof = p.artist.artistProf;
+        const words = [p.artist.firstName, p.artist.lastName, prof.username, prof.location.city, prof.location.state];
+        let points = 0;
+        prof.styles?.forEach(s => {
+            const pieces = s.split(' ').map(p => p.trim());
+            pieces.forEach(p => words.push(p))
+        });
+        p.tags?.forEach(t => {
+            const pieces = t.split(' ').map(p => p.trim());
+            pieces.forEach(p => words.push(p))
+        });
+        const pieces = p.caption?.split(' ').map(p => p.trim());
+        pieces?.forEach(p => words.push(p))
+        words.forEach(w => {
+            keywords.forEach(k => {
+                if (k?.toLowerCase() === w?.toLowerCase()) points++;
+            });
+        });
+        searchObjs.push({id: p._id, points});
+        console.log(points);
+    });
+    posts = posts.sort((a,b) => {
+        let aPoints = 0;
+        let bPoints = 0;
+        for (const ob of searchObjs) {
+            if (ob.id.equals(a._id)) aPoints = ob.points;
+            if (ob.id.equals(b._id)) bPoints = ob.points;
+        }
+        return bPoints - aPoints;
+    }).filter(post => {
+        for (const ob of searchObjs) {
+            if (ob.id.equals(post._id) && ob.points > 0) return true;
+        }
+        return false;
+    })
+    res.render('posts/results', { posts, erorrMsg: 'Cannot show results.' });
 }
 
 // NOT USING CURRENTLY but might be useful to have the images available as an API?
