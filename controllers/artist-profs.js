@@ -52,7 +52,7 @@ async function create(req, res) {
   } else {
     temp = {
       image: {
-        data: path.join("uploads/" + req.file.filename),
+        data: path.join("/uploads/" + req.file.filename),
         contentType: req.file.mimetype
       },
     };
@@ -81,7 +81,9 @@ async function index(req, res) {
 async function show(req, res) {
   const artist = await User.findOne({ 'artistProf.username': req.params.username });
   const posts = await Post.find({ artist: artist._id }).populate('artist');
-  res.render(`artist-profs/show`, { title: 'Tattoo Connect', errorMsg: 'Cannot Show Artist', user: req.user, artist, posts })
+  if (!artist._id.equals(req.user._id)) {
+    res.render(`artist-profs/show`, { title: 'Tattoo Connect', errorMsg: 'Cannot Show Artist', user: req.user, artist, posts })
+  } else res.redirect('/posts');
 }
 
 async function edit(req, res) {
@@ -107,7 +109,7 @@ async function update(req, res) {
     }
     prof.profPic = {
       image: {
-        data: path.join("uploads/" + req.file.filename),
+        data: path.join("/uploads/" + req.file.filename),
         contentType: req.file.mimetype
       },
     };

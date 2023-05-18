@@ -14,7 +14,8 @@ module.exports = {
     update,
     homeFeed,
     like,
-    showLiked
+    showLiked,
+    showDiscover
 }
 
 // render form to make a post
@@ -147,6 +148,11 @@ async function like(req, res) {
 async function showLiked(req, res) {
     const posts = await Post.find({ likedBy: req.user._id }).populate('artist');
     res.render('posts/liked', { posts, user: req.user, title: 'Tattoo Connect', errorMsg: 'Cannot show liked posts.' });
+}
+
+async function showDiscover(req, res) {
+    let posts = await Post.find({}).populate('artist');
+    res.render('posts/discover', { posts, title: 'Tattoo Connect', erorrMsg: 'Cannot show discover.' });
 }
 
 // NOT USING CURRENTLY but might be useful to have the images available as an API?

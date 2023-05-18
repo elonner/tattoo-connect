@@ -1,17 +1,73 @@
 <%- include('../partials/header') %>
 
-<h2><%= artist.firstName %> <%= artist.lastName %></h2>
-<h3>@<%= artist.artistProf.username %></h3>
-<p>Styles: <%= artist.artistProf.styles.join(', ') %></p>
-<% if (!user?.following.includes(artist.artistProf.username)) { %>
-    <form action="/artist-profs/<%= artist.artistProf.username %>/follow?_method=PUT" method="POST">
-        <button type="submit">Follow</button>
-    </form>
-<% } else { %>
-    <form action="/artist-profs/<%= artist.artistProf.username %>/follow?_method=PUT" method="POST">
-        <button type="submit">Unfollow</button>
-    </form>
-<% } %>
+<nav class="level has-background-info-dark">
+    <div class="dropdown is-hoverable level-left">
+        <div class="dropdown-trigger">
+          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+            <span>About me</span>
+            <span class="icon is-small">
+              <i class="fas fa-angle-down" aria-hidden="true"></i>
+            </span>
+          </button>
+        </div>
+        <div class="dropdown-menu" role="menu">
+          <div class="dropdown-content">
+            <div class="dropdown-item">
+              <p><%= artist.artistProf.aboutMe %></p>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="container"">
+        <div class="level-item">
+            <figure class="image is-96x96">
+                <img class="is-rounded" src="<%= artist.artistProf.profPic.image.data %>">
+            </figure>
+        </div>
+        <div class="level-item has-text-centered">
+            <p class="title has-text-light">
+                <%= artist.firstName %> <%= artist.lastName %>
+            </p>
+            <p class="subtitle has-text-light">
+                @<%= artist.artistProf.username %>
+            </p>
+        </div>
+    </div>
+    
+    <div class="level-right">
+        <div class="level-item has-text-centered">
+            <% if (!user?.following.includes(artist._id)) { %>
+                <form action="/artist-profs/<%= artist.artistProf.username %>/follow?_method=PUT" method="POST">
+                    <button class="button is-success is-outlined" type="submit">Follow</button>
+                </form>
+            <% } else { %>
+                <form action="/artist-profs/<%= artist.artistProf.username %>/follow?_method=PUT" method="POST">
+                    <button class="button is-danger" type="submit">Unfollow</button>
+                </form>
+            <% } %>
+        </div>
+        <div class="dropdown is-right is-hoverable">
+            <div class="dropdown-trigger">
+              <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
+                <span>Styles</span>
+                <span class="icon is-small">
+                  <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>
+              </button>
+            </div>
+            <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+              <div class="dropdown-content">
+                <% artist.artistProf.styles?.forEach(s => { %>
+                      <a class="dropdown-item" href="#"><%= s %></a>
+                <% }) %>
+              </div>
+            </div>
+        </div>
+    </div>
+
+</nav>
+
 
 <div class="my-container">
     <% posts.forEach(post => { %>

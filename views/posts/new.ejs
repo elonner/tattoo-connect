@@ -1,15 +1,59 @@
 <%- include('../partials/header') %>
 
-<h2>New Post</h2>
+<section class="hero has-background-warning-light is-small">
+    <div class="hero-body mt-2">
+      <p class="title has-text-centered">
+        New Post
+      </p>
+    </div>
+</section>
 
-<form action="/posts" method="POST" enctype="multipart/form-data">
-    <label>Image:</label>
-    <input type="file" name="newImg" required><br>
-    <label>Caption:</label>
-    <input type="text" name="caption"><br>
-    <label>Tags:</label>
-    <input type="text" name="tags"><br>
-    <button type="submit">Post</button>
-</form>
+<div id="newPost" class="box container">
+    <form action="/posts" method="POST" enctype="multipart/form-data">
+        <div class="field">
+            <div class="file has-name is-align-items-center">
+                <label class="file-label" id="file-container">
+                  <input class="file-input" type="file" name="newImg" required>
+                  <span class="file-cta">
+                    <span class="file-icon">
+                      <i class="fas fa-upload"></i>
+                    </span>
+                    <span class="file-label">
+                      Choose an image
+                    </span>
+                  </span>
+                  <span id="file-name">
+                    No image selected...
+                  </span>
+                </label>
+              </div>
+            <p class="help">Please upload a JPEG or PNG</p>
+        </div>
+
+        <div class="field">
+            <label class="label">Caption</label>
+            <textarea class="textarea" name="caption"></textarea>
+        </div>
+
+        <div class="field">
+            <label class="label">Tags</label>
+            <input class="input" type="text" name="tags" placeholder="e.g. bold, black and grey, realism, james bond">
+            <p class="help">Please separate your tags by comma</p>
+        </div>
+
+        <div class="field is-grouped is-grouped-right">
+            <p class="control">
+              <button type="submit" class="button is-primary">
+                Post
+              </button>
+            </p>
+            <p class="control">
+              <a href="/" class="button is-light">
+                Cancel
+              </a>
+            </p>
+          </div>
+    </form>
+</div>
 
 <%- include('../partials/footer') %>

@@ -12,6 +12,8 @@ router.get('/', ensureLoggedIn, postsCtrl.index);
 router.get('/new', ensureLoggedIn, postsCtrl.new);
 // GET /posts/liked
 router.get('/liked', ensureLoggedIn, postsCtrl.showLiked);
+// GET /posts/discover
+router.get('/discover', postsCtrl.showDiscover)
 // GET /posts/:id/edit
 router.get('/:id/edit', ensureLoggedIn, postsCtrl.edit);
 // PUT /posts/:id

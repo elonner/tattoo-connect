@@ -1,21 +1,71 @@
 <%- include('../partials/header') %>
 
-<br><br><br><br>
-<h2>Artist Signup</h2>
+<section class="hero has-background-primary-light is-small">
+  <div class="hero-body mt-2">
+    <p class="title has-text-centered">
+      New Artist Profile
+    </p>
+  </div>
+</section>
 
-<form action="/artist-profs" method="POST" enctype="multipart/form-data">
-    <label>Username:</label>
-    <input type="text" name="username" required><br>
-    <label>Profile Pic:</label>
-    <input type="file" name="profPic"><br>
-    <label>Primary Location:</label>
-    <input type="text" name="city" placeholder="City" required>
-    <input type="text" name="state" placeholder="State" required><br>
-    <label>Phone Number:</label>
-    <input type="number" name="phone" placeholder="3334445555"><br>
-    <label>Styles</label>
-    <input type="text" name="styles"><br>
-    <button type="submit">Sign Up</button>
+<div id="newArtist" class="box container">
+  <form action="/artist-profs" method="POST" enctype="multipart/form-data">
+    
+    <div class="field">
+        <div class="file has-name is-align-items-center">
+            <label class="file-label" id="file-container">
+              <input class="file-input" type="file" name="profPic">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Choose profile pic
+                </span>
+              </span>
+              <span id="file-name">
+                No image selected...
+              </span>
+            </label>
+          </div>
+        <p class="help">Please upload a JPEG or PNG</p>
+    </div>
+     
+    <div class="field">
+        <label class="label">Username</label>
+        <input class="input" type="text" name="tags" placeholder="e.g. bold, black and grey, realism, james bond">
+    </div>
+    
+    <div class="field">
+        <label class="label">Primary location</label>
+        <input class="input" type="text" name="city" placeholder="Oakland" required>
+        <input class="input" type="text" name="state" placeholder="CA" required>
+    </div>
+    
+    <div class="field">
+        <label class="label">Phone number</label>
+        <input class="input" type="number" name="city" placeholder="3334445555">
+    </div>
+
+    <div class="field">
+      <label class="label">Styles</label>
+      <input class="input" type="text" name="tags" placeholder="e.g. black and grey, realism, fine line">
+      <p class="help">Please separate your styles by comma</p>
+    </div>
+
+    <div class="field is-grouped is-grouped-right">
+        <p class="control">
+          <button type="submit" class="button is-primary">
+            Submit
+          </button>
+        </p>
+        <p class="control">
+          <a href="/" class="button is-light">
+            Cancel
+          </a>
+        </p>
+      </div>
   </form>
+</div>
 
 <%- include('../partials/footer') %>

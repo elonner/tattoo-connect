@@ -1,5 +1,4 @@
 body {
-  background-color: rgb(230, 230, 230);
   font-family: 'Merriweather', serif;
 }
 
@@ -14,7 +13,7 @@ body {
 .card {
   width: 350px;
   border-radius: 1rem;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.3), 0 0 0 1.5px rgba(10,10,10,.1);
+  box-shadow: 0 0 0.5em -0.125em rgba(10,10,10,.3), 0 0 0 1.5px rgba(10,10,10,.1);
 }
 
 .card-footer-item.has-background-primary {
@@ -84,6 +83,61 @@ img.is-rounded {
   width: 600px;
   border-radius: 0.75rem;
   box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.3), 0 0 0 1.5px rgba(10,10,10,.1);
+}
+
+.level.has-background-info-dark {
+  padding: 2rem 1rem 1rem 1rem;
+}
+
+.level-left .dropdown-menu {
+  width: 20rem;
+}
+
+.level-right .dropdown-menu {
+  width: fit-content;
+}
+
+.level-item {
+  flex-direction: column;
+}
+
+.level-item .title {
+  margin-bottom: 1rem;
+}
+
+#aboutMe {
+  width: 40rem;
+}
+
+.level-item img {
+  height: 96px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ FORMS \\\\\\\\\\\\\\\\\\\\\ */
+
+#newPost {
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+  background-color: rgb(235, 235, 235);
+  width: 25rem;
+  margin-top: 2rem;
+}
+
+#newArtist {
+  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.1), 0 0 0 1px rgba(10,10,10,.02);
+  background-color: rgb(235, 235, 235);
+  width: 25rem;
+  margin-top: 2rem;
+}
+
+#file-container {
+  justify-content: center;
+  align-items: center;
 }
 
 /* \\\\\\\\\\\\\\\\\\\\\\\\ NAVBAR \\\\\\\\\\\\\\\\\\\\\\\\\ */

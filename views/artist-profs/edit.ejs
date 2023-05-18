@@ -1,21 +1,75 @@
 <%- include('../partials/header') %>
 
-<br><br><br><br>
-<h2>Edit Profile</h2>
 
-<form action="/artist-profs/<%= user.artistProf.username %>?_method=PUT" method="POST" enctype="multipart/form-data">
-    <label>Username:</label>
-    <input type="text" name="username"><br>
-    <label>Profile Pic:</label>
-    <input type="file" name="profPic"><br>
-    <label>Primary Location:</label>
-    <input type="text" name="city" placeholder="City">
-    <input type="text" name="state" placeholder="State"><br>
-    <label>Phone Number:</label>
-    <input type="number" name="phone" placeholder="3334445555"><br>
-    <label>Styles</label>
-    <input type="text" name="styles"><br>
-    <button type="submit">Save</button>
+<section class="hero has-background-primary-light is-small">
+  <div class="hero-body mt-2">
+    <p class="title has-text-centered">
+      New Artist Profile
+    </p>
+  </div>
+</section>
+
+<div id="newArtist" class="box container">
+  <form action="/artist-profs/<%= user.artistProf.username %>?_method=PUT" method="POST" enctype="multipart/form-data">
+    
+    <div class="field">
+        <div class="file has-name is-align-items-center">
+            <label class="file-label" id="file-container">
+              <input class="file-input" type="file" name="profPic">
+              <span class="file-cta">
+                <span class="file-icon">
+                  <i class="fas fa-upload"></i>
+                </span>
+                <span class="file-label">
+                  Choose profile pic
+                </span>
+              </span>
+              <span id="file-name">
+                No image selected...
+              </span>
+            </label>
+          </div>
+        <p class="help">Replace your profile pic if you want</p>
+    </div>
+      
+    <div class="field">
+        <label class="label">Username</label>
+        <input class="input" type="text" name="tags" placeholder="e.g. bold, black and grey, realism, james bond">
+        <p class="help">Change your new username if you want</p>
+    </div>
+    
+    <div class="field">
+        <label class="label">Primary location</label>
+        <input class="input" type="text" name="city" placeholder="Oakland" required>
+        <input class="input" type="text" name="state" placeholder="CA" required>
+        <p class="help">Update your primary location if you want</p>
+      </div>
+      
+      <div class="field">
+        <label class="label">Phone number</label>
+        <input class="input" type="number" name="city" placeholder="3334445555">
+        <p class="help">Update your phone number if you want</p>
+    </div>
+
+    <div class="field">
+      <label class="label">Styles</label>
+      <input class="input" type="text" name="tags" placeholder="e.g. black and grey, realism, fine line">
+      <p class="help">Replace your current styles if you want</p>
+    </div>
+
+    <div class="field is-grouped is-grouped-right">
+        <p class="control">
+          <button type="submit" class="button is-primary">
+            Save
+          </button>
+        </p>
+        <p class="control">
+          <a href="/posts" class="button is-light">
+            Cancel
+          </a>
+        </p>
+      </div>
   </form>
+</div>
 
 <%- include('../partials/footer') %>
