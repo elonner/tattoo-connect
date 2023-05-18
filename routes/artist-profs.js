@@ -5,10 +5,12 @@ const ensureLoggedIn = require('../config/ensureLoggedIn');
 const multer = require('multer');
 const upload = multer({dest: 'public/uploads/'});
 
-// GET /artist-profs/new
-router.get('/new', ensureLoggedIn, artistProfsCtrl.new);
 // GET /artist-profs
 router.get('/', artistProfsCtrl.index);
+// GET /artist-profs/new
+router.get('/new', ensureLoggedIn, artistProfsCtrl.new);
+// GET /artist-profs/following
+router.get('/following', ensureLoggedIn, artistProfsCtrl.showFollowing)
 // GET /artist-profs/:id
 router.get('/:username', artistProfsCtrl.show);
 // GET /artist-profs/:id/edit

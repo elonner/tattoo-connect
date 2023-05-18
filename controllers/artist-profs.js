@@ -10,7 +10,8 @@ module.exports = {
   show,
   edit,
   update,
-  follow
+  follow,
+  showFollowing
 }
 
 // renders artist sign up sheet
@@ -135,6 +136,16 @@ async function follow(req, res) {
     console.log(err);
   }
   res.redirect(`/artist-profs/${req.params.username}`)
+}
+
+async function showFollowing(req, res) {
+  try {
+    const artists = await User.find({ _id: { $in: req.user.following }});
+    res.render('artist-profs/following', { errorMsg: 'Cannot show artist.', artists })
+  } catch (err) {
+    console.log(err);
+    res.redirect('/');
+  }
 }
 
 function isImg(mimetype) {
