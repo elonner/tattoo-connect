@@ -1,6 +1,6 @@
 <%- include('../partials/header') %>
 
-<section class="hero has-background-danger-light is-small">
+<section class="hero has-background-grey-lighter is-small">
     <div class="hero-body mt-2">
       <p class="title has-text-centered">
         My Posts
@@ -14,9 +14,9 @@
             <div class="card">
                 <%- include('../partials/post', {post}) %>
                 <footer class="card-footer">
-                    <a class="card-footer-item has-background-primary has-text-light" href="/posts/<%= post._id %>/edit">Edit</a>
-                    <form class="card-footer-item button has-background-danger has-text-light" action="/posts/<%= post._id %>?_method=DELETE" method="POST">
-                            <button class="card-footer-item button has-background-danger has-text-light" type="submit">Delete</button>
+                    <a href="/posts/<%= post._id %>/edit" class="card-footer-item edt-btn has-background-link-light">Edit</a>
+                    <form action="/posts/<%= post._id %>?_method=DELETE" method="POST">
+                        <button type="submit" class="button card-footer-item del-btn has-text-danger-light has-background-danger-dark">Delete</button>
                     </form>
                 </footer>
             </div>

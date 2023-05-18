@@ -12,16 +12,17 @@ body {
 
 .card {
   width: 350px;
-  border-radius: 1rem;
+  border-radius: 0.25rem;
   box-shadow: 0 0 0.5em -0.125em rgba(10,10,10,.3), 0 0 0 1.5px rgba(10,10,10,.1);
 }
 
-.card-footer-item.has-background-primary {
-  border-radius: 0 0 0 1rem;
+.card-footer-item.edt-btn {
+  border-radius: 0 0 0 0.25rem;
 }
 
-.card-footer-item.has-background-danger {
-  border-radius: 0 0 1rem 0;
+.card-footer-item.del-btn {
+  border-radius: 0 0 0.25rem 0;
+  height: 100%;
 }
 
 button.card-footer-item {
@@ -38,7 +39,7 @@ img.is-rounded {
 }
 
 img.is-rounded {
-  box-shadow: 0 0 0 3px hsl(171, 34%, 65%);
+  box-shadow: 0 0 0 3px hsl(0, 0%, 67%);
 }
 
 .button.small {
@@ -74,18 +75,18 @@ img.is-rounded {
 
 .post {
   padding: 0 10px;
-  border-radius: 30px;
+  border-radius: 0.25rem;
 }
 
 /* \\\\\\\\\\\\\\\\\\\\\\\\\ ARTIST PROF \\\\\\\\\\\\\\\\\\\\\\\\ */
 
 .card.profile {
   width: 600px;
-  border-radius: 0.75rem;
-  box-shadow: 0 0.5em 1em -0.125em rgba(10,10,10,.3), 0 0 0 1.5px rgba(10,10,10,.1);
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0.5em -0.125em rgba(10,10,10,.3), 0 0 0 1.5px rgba(10,10,10,.1);
 }
 
-.level.has-background-info-dark {
+.level {
   padding: 2rem 1rem 1rem 1rem;
 }
 

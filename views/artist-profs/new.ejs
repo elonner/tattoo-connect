@@ -1,6 +1,6 @@
 <%- include('../partials/header') %>
 
-<section class="hero has-background-primary-light is-small">
+<section class="hero has-background-grey-lighter is-small">
   <div class="hero-body mt-2">
     <p class="title has-text-centered">
       New Artist Profile
@@ -14,7 +14,7 @@
     <div class="field">
         <div class="file has-name is-align-items-center">
             <label class="file-label" id="file-container">
-              <input class="file-input" type="file" name="profPic">
+              <input id="img-upload" class="file-input" type="file" name="profPic">
               <span class="file-cta">
                 <span class="file-icon">
                   <i class="fas fa-upload"></i>
@@ -23,7 +23,7 @@
                   Choose profile pic
                 </span>
               </span>
-              <span id="file-name">
+              <span id="file-name" class="ml-1">
                 No image selected...
               </span>
             </label>

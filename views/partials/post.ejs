@@ -58,7 +58,7 @@
                 <div class="tags are-small">
                     <% post.tags.forEach(t => { %>
                         <span class="tag is-info is-light is-rounded">
-                            <a href="#"><%= t %></a>
+                            <a href="/posts/search/?searchInput=<%= t.split(' ').join('+') %>"><%= t %></a>
                         </span>
                     <% }) %>
                 </div>

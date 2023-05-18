@@ -1,6 +1,6 @@
 <%- include('../partials/header') %>
 
-<nav class="level has-background-info-dark">
+<nav class="level has-background-grey-dark">
     <div class="dropdown is-hoverable level-left">
         <div class="dropdown-trigger">
           <button class="button" aria-haspopup="true" aria-controls="dropdown-menu4">
@@ -20,19 +20,24 @@
     </div>
 
     <div class="container"">
-        <div class="level-item">
-            <figure class="image is-96x96">
-                <img class="is-rounded" src="<%= artist.artistProf.profPic.image.data %>">
-            </figure>
-        </div>
-        <div class="level-item has-text-centered">
-            <p class="title has-text-light">
-                <%= artist.firstName %> <%= artist.lastName %>
-            </p>
-            <p class="subtitle has-text-light">
-                @<%= artist.artistProf.username %>
-            </p>
-        </div>
+      <div class="level-item has-text-centered">
+          <p class="title has-text-light">
+              <%= artist.firstName %> <%= artist.lastName %>
+          </p>
+          <p class="subtitle has-text-light">
+              @<%= artist.artistProf.username %>
+          </p>
+      </div>
+      <div class="level-item">
+          <figure class="image is-96x96">
+              <img class="is-rounded" src="<%= artist.artistProf.profPic.image.data %>">
+          </figure>
+      </div>
+      <div class="level-item has-text-centered">
+        <p class="is-size-3 has-text-light">
+            <%= artist.artistProf.location[0].city %>
+        </p>
+      </div>
     </div>
     
     <div class="level-right">
@@ -59,7 +64,7 @@
             <div class="dropdown-menu" id="dropdown-menu4" role="menu">
               <div class="dropdown-content">
                 <% artist.artistProf.styles?.forEach(s => { %>
-                      <a class="dropdown-item" href="#"><%= s %></a>
+                      <a class="dropdown-item" href="/posts/search/?searchInput=<%= s.split(' ').join('+') %>"><%= s %></a>
                 <% }) %>
               </div>
             </div>

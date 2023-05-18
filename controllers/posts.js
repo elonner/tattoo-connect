@@ -114,15 +114,23 @@ async function update(req, res) {
 }
 
 async function homeFeed(req, res) {
-    let posts = await Post.find({}).populate('artist');
-    if (req.user && req.user.following.length) {
+    let posts; 
+    if (!req.user || !req.user.following.length) {
         if (req.user.artistProf) {
-            posts = await Post.find({ $and: [{ artist: { $in: req.user.following } }, { artist: { $ne: req.user._id } }] }).populate('artist');
+            
         }
-        else {
-            posts = await Post.find({ artist: { $in: req.user.following } }).populate('artist');
+        posts = await Post.find({}).populate('artist');
+    } else if ()
+
+    if (req.user) {
+        if (req.user.following.length) {
+            if (req.user.artistProf) {
+                posts = await Post.find({ $and: [{ artist: { $in: req.user.following } }, { artist: { $ne: req.user._id } }] }).populate('artist');
+            } else {
+                posts = await Post.find({ artist: { $in: req.user.following } }).populate('artist');
+            }
         }
-    }
+    } else 
     res.render('index', { posts, title: 'Tattoo Connect', erorrMsg: 'Cannot show home feed.' });
 }
 
@@ -158,6 +166,7 @@ async function showDiscover(req, res) {
 
 async function showResults(req, res) {
     if (req.query === '') res.redirect('/');
+    console.log(req.query);
     const keywords = req.query.searchInput.split(' ').map(q => q.trim());
     let posts = await Post.find({}).populate('artist');
     let searchObjs = [];

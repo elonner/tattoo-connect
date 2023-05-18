@@ -21,7 +21,7 @@
   <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="/">
-        <img src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg" width="41" height="28">
+        <img src="/images/Logo.png" width="170">
       </a>
     </div>
   
@@ -42,6 +42,9 @@
         <a class="navbar-item" href="/posts/discover">
           Discover
         </a>
+      </div>
+      
+      <div class="navbar-end">
         <form action="/posts/search" class="navbar-item">
           <p class="control has-icons-left">
             <input type="text" name="searchInput" class="input is-rounded" placeholder="Search posts" required>
@@ -51,9 +54,6 @@
             <button class="hidden" type="submit"></button>
           </p>
         </form>
-      </div>
-  
-      <div class="navbar-end">
         <div class="navbar-item">
           <div class="field is-grouped">
             <% if (user) { %>
