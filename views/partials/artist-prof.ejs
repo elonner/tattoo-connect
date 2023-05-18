@@ -1,0 +1,46 @@
+<div class="box">
+    <div class="card profile">
+        <div class="card-content">
+            <div class="media">
+                <div class="media-left">
+                    <figure class="image is-128x128 is-1by1">
+                        <img class="is-rounded" src="<%= artist.artistProf.profPic.image.data %>">
+                    </figure>
+                </div>
+
+                <div class="media-content">
+                    <p class="title is-2">
+                        <a class="has-text-dark" href="/artist-profs/<%= artist.artistProf.username %>">
+                            <%= artist.firstName %>
+                            <%= artist.lastName %>
+                        </a>
+                    </p>
+                    <p class="subtitle is-4">
+                        <a class="has-text-dark" href="/artist-profs/<%= artist.artistProf.username %>">@<%=
+                            artist.artistProf.username %>
+                        </a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="content has-text-right">
+                <p class="title is-4 has-text-grey"><%= artist.artistProf.location[0].city %>, <%= artist.artistProf.location[0].state %></p>
+            </div>
+                
+            <div class="my-block">
+                <div class="styles">
+                    <% artist.artistProf.styles?.forEach(s => { %>
+                        <span class="tag is-medium is-success is-rounded">
+                            <a class="has-text-light" href="#"><%= s %></a>
+                        </span>
+                    <% }) %>
+                </div>
+            </div>
+
+            <div class="content">
+                <p class="title is-4">About me</p>
+                <%= artist.artistProf.aboutMe %>
+            </div>
+        </div>
+    </div>
+</div>

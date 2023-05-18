@@ -17,7 +17,7 @@ module.exports = {
 // renders artist sign up sheet
 function newProf(req, res) {
   if (req.user.artistProf) return res.redirect('/');
-  res.render('artist-profs/new', { title: 'Tattoo Connect', errorMsg: 'Cannot Show Sign Up Form' });
+  res.render('artist-profs/new', { errorMsg: 'Cannot Show Sign Up Form' });
 }
 
 // handles artist sign up sheet submission
@@ -72,7 +72,7 @@ async function create(req, res) {
 async function index(req, res) {
   try {
     const artists = await User.find({ $and: [{ artistProf: { $exists: true } }, { _id: { $ne: req.user?._id } }] });
-    res.render('artist-profs/index', { title: 'Tattoo Connect', errorMsg: 'Cannot show artist.', artists })
+    res.render('artist-profs/index', { errorMsg: 'Cannot show artist.', artists })
   } catch (err) {
     console.log(err);
     res.redirect('/');
@@ -82,25 +82,28 @@ async function index(req, res) {
 async function show(req, res) {
   const artist = await User.findOne({ 'artistProf.username': req.params.username });
   const posts = await Post.find({ artist: artist._id }).populate('artist');
-  if (!artist._id.equals(req.user._id)) {
-    res.render(`artist-profs/show`, { title: 'Tattoo Connect', errorMsg: 'Cannot Show Artist', user: req.user, artist, posts })
-  } else res.redirect('/posts');
+  if (artist._id.equals(req.user?._id)) {
+    res.redirect('/posts');
+  } else {
+    res.render(`artist-profs/show`, { errorMsg: 'Cannot Show Artist', user: req.user, artist, posts });
+  }
 }
 
 async function edit(req, res) {
   const artist = await User.findOne({ 'artistProf.username': req.params.username });
   if (!req.user._id.equals(artist._id)) return res.redirect('/');
-  res.render(`artist-profs/edit`, { title: 'Tattoo Connect', errorMsg: 'Cannot edit post' });
+  res.render(`artist-profs/edit`, { errorMsg: 'Cannot edit post' });
 }
 
 async function update(req, res) {
   const artist = await User.findOne({ 'artistProf.username': req.params.username });
   if (!req.user._id.equals(artist._id)) return res.redirect('/');
   const prof = req.user.artistProf;
-
-  if (req.body.username !== '') prof.username = req.body.username;
-  if (req.body.number !== '') req.user.number = req.body.number;
-  if (req.body.styles !== '') prof.styles = req.body.styles.split(',').map(t => t.trim())
+   
+  if (!!req.body.number) req.user.number = req.body.number;
+  if (!!req.body.username) prof.username = req.body.username;
+  if (!!req.body.aboutMe) prof.aboutMe = req.body.aboutMe;
+  if (!!req.body.styles) prof.styles = req.body.styles.split(',').map(t => t.trim())
   if (req.body.city && req.body.state) prof.location = [{ city: req.body.city, state: req.body.state }];
   if (req.file) {
     if (!isImg(req.file.mimetype)) {

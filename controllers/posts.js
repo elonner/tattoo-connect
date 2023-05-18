@@ -163,7 +163,7 @@ async function showResults(req, res) {
     let searchObjs = [];
     posts.forEach(p => {
         const prof = p.artist.artistProf;
-        const words = [p.artist.firstName, p.artist.lastName, prof.username, prof.location.city, prof.location.state];
+        const words = [p.artist.firstName, p.artist.lastName, prof.username, prof.location[0].city, prof.location[0].state];
         let points = 0;
         prof.styles?.forEach(s => {
             const pieces = s.split(' ').map(p => p.trim());
@@ -177,11 +177,11 @@ async function showResults(req, res) {
         pieces?.forEach(p => words.push(p))
         words.forEach(w => {
             keywords.forEach(k => {
+                // console.log('word', w, 'key', k);
                 if (k?.toLowerCase() === w?.toLowerCase()) points++;
             });
         });
         searchObjs.push({id: p._id, points});
-        console.log(points);
     });
     posts = posts.sort((a,b) => {
         let aPoints = 0;
