@@ -31,7 +31,7 @@
                 <div class="styles">
                     <% artist.artistProf.styles?.forEach(s => { %>
                         <span class="tag is-medium is-success is-rounded">
-                            <a class="has-text-light" href="#"><%= s %></a>
+                            <a class="has-text-light" href="/posts/search/?searchInput=<%= s.split(' ').join('+') %>"><%= s %></a>
                         </span>
                     <% }) %>
                 </div>

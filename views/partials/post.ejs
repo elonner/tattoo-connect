@@ -32,7 +32,7 @@
                 <% if (user) { %>
                     <% if (!post.likedBy.includes(user._id)) { %>
                         <form action="/posts/<%= post._id %>/like?_method=PUT" method="POST">
-                            <button class="button" type="submit">
+                            <button class="button is-fullwidth" type="submit">
                                 <span class="icon">
                                     <i class="fa-regular fa-heart"></i>
                                 </span>
@@ -41,7 +41,7 @@
                         </form>
                         <% } else { %>
                         <form action="/posts/<%= post._id %>/like?_method=PUT" method="POST">
-                            <button class="button is-success" type="submit">
+                            <button class="button is-success is-fullwidth" type="submit">
                                 <span class="icon">
                                     <i class="fa-solid fa-heart-crack"></i>
                                 </span>
